@@ -279,7 +279,7 @@ input, button{
     <h1>Download time calculator</h1>
 	<h3>How long will take to download this?</h3>
 	
-	<form onSubmit="calc(); return false; false;">
+	<form onsubmit="return false">
 	<div id="speed">
 		<h3>How fast is your connection speed?</h3>
 		
@@ -289,10 +289,10 @@ input, button{
 		
 		<p>
 			<label for="internetSpeed">Download Speed</label>
-			<input id="internetSpeed" type="number" value="5" placeholder="Download speed">
+			<input id="internetSpeed" type="number" value="10" placeholder="Download speed" autofocus>
 			<select id="internetSpeedBase">
-			<option value="10^3">Kbps</option>
-			<option value="10^6" selected>Mbps</option>
+				<option value="10^3">Kbps</option>
+				<option value="10^6" selected>Mbps</option>
 			</select>
 		</p>
 		
@@ -304,24 +304,24 @@ input, button{
 		  	<div>
 				<p class="overhead-p"><label for="internetOverhead">Overhead</label>
 					<select id="internetOverhead">
-					<option value="1" selected>None</option>
-					<option value="0.99">1%</option>
-					<option value="0.95">5%</option>
-					<option value="0.9">10% (Tipical TCP overhead)</option>
-					<option value="0.85">15%</option>
-					<option value="0.8">20%</option>
-					<option value="0.75">25%</option>
-					<option value="0.7">30%</option>
-					<option value="0.6">40%</option>
-					<option value="0.5">50%</option>
-					<option value="0.4">60%</option>
-					<option value="0.3">70%</option>
-					<option value="0.2">80%</option>
-					<option value="0.1">90%</option>
-					<option value="0.05">95%</option>
-					<option value="0.01">99%</option>
+						<option value="1" selected>None</option>
+						<option value="0.99">1%</option>
+						<option value="0.95">5%</option>
+						<option value="0.9">10% (Tipical TCP overhead)</option>
+						<option value="0.85">15%</option>
+						<option value="0.8">20%</option>
+						<option value="0.75">25%</option>
+						<option value="0.7">30%</option>
+						<option value="0.6">40%</option>
+						<option value="0.5">50%</option>
+						<option value="0.4">60%</option>
+						<option value="0.3">70%</option>
+						<option value="0.2">80%</option>
+						<option value="0.1">90%</option>
+						<option value="0.05">95%</option>
+						<option value="0.01">99%</option>
 					</select>
-					<a href="#" onClick="alert('If you just measured your internet speed, you don\'t need to change this.\n\nBut if enter your contracted speed e.g. 10Mbps, keep in mind this is teorical maximum there is always overhead.\nFor a conservative value use 10% (tipical TCP overhead) or for more realistic results use 20%.')">Help</a>
+					<a href="#" onClick="alert('If you just measured your internet speed, you don\'t need to change this.\n\nBut if enter your contracted speed e.g. 10Mbps, keep in mind this is teorical a maximum there is always overhead.\nFor a conservative value use 10% (tipical TCP overhead) or for more realistic results use 20%.')">Help</a>
 				</p>
 			</div>
 		</div>	
@@ -331,7 +331,7 @@ input, button{
 		<h3>What is the size of what you want to download?</h3>
 		<p> 
 			<label for="fileSize">Size</label>
-			<input type="number" id="fileSize" value="100">
+			<input type="number" id="fileSize" value="1">
 			<select id="fileSizeBase">
 				<option value="2^10">KB (KiloBytes)</option>
 				<option value="2^20" selected>MB (MegaBytes)</option>
@@ -341,9 +341,9 @@ input, button{
 		</p>
 		
 		<p class="examples-p" style="display:none"> 
-			<label for="fileSize">Examples</label>
-			<select id="fileSizeBase">
-				<option value=""></option>
+			<label for="fileSizeEx">Examples</label>
+			<select id="fileSizeEx">
+				<option></option>
 				<optgroup label="iTunes Store">
 					<option value="4">4-minute song</option>
 					<option value="30">5-minute video</option>
@@ -365,7 +365,7 @@ input, button{
 		</p>
 		
 		<p>
-			<button onClick="calc()">Calculate</button>
+			<button id="calculateButton">Calculate</button>
 		</p>
 	</div>
 	
@@ -407,12 +407,12 @@ input, button{
 var downloadSimulator = null;
 
 window.onload=function(){
-	
 
+	//console.log("Loaded!");
+	
 	var hasFlash = function() {
     	return (typeof navigator.plugins == "undefined" || navigator.plugins.length == 0) ? !!(new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) : navigator.plugins["Shockwave Flash"];
 	};
-
 	if(!hasFlash()){
 		speedtest.style.display = 'none';
 	}
@@ -431,18 +431,46 @@ window.onload=function(){
 		calc();
 	}
 	else if(window.localStorage){
-		if(window.localStorage.getItem('speed')){
-			internetSpeed.value = window.localStorage.getItem('speed');
-			internetSpeedBase.value = window.localStorage.getItem('speedBase');
-			internetOverhead.value = window.localStorage.getItem('overhead');
-			fileSize.value = window.localStorage.getItem('file');
-			fileSizeBase.value = window.localStorage.getItem('fileBase');
+		if(window.localStorage.getItem('downloadtime.speed')){
+			internetSpeed.value = window.localStorage.getItem('downloadtime.speed');
+			internetSpeedBase.value = window.localStorage.getItem('downloadtime.speedBase');
+			internetOverhead.value = window.localStorage.getItem('downloadtime.overhead');
+			fileSize.value = window.localStorage.getItem('downloadtime.file');
+			fileSizeBase.value = window.localStorage.getItem('downloadtime.fileBase');
 		}
+		else defaults();
 	}
+	else defaults();
+
+	calculateButton.onclick = calc;
+
+	document.getElementsByTagName("form")[0].onsubmit = function(e){
+
+		if (e.stopPropagation) e.stopPropagation();
+	    else e.cancelBubble = true;
+	    if (e.preventDefault) e.preventDefault();
+	    else e.returnValue = false;
+		this.returnValue = false;
+
+		calc();
+
+		return false;
+	}
+
+
 };
 
+function defaults(){
+	internetSpeed.value = "10";
+	internetSpeedBase.value = "10^6";
+	internetOverhead.value = "0.9";
+	fileSize.value = "1";
+	fileSizeBase.value = "2^30";
+}
 
 function calc(){
+
+	//console.log("Calc");
 	
 	// Internet speed
 	
@@ -502,11 +530,11 @@ function calc(){
 	}
 	
 	if(window.localStorage){		
-		window.localStorage.setItem('speed', internetSpeed.value);
-		window.localStorage.setItem('speedBase', internetSpeedBase.value);
-		window.localStorage.setItem('overhead', internetOverhead.value);
-		window.localStorage.setItem('file', fileSize.value);
-		window.localStorage.setItem('fileBase', fileSizeBase.value);
+		window.localStorage.setItem('downloadtime.speed', internetSpeed.value);
+		window.localStorage.setItem('downloadtime.speedBase', internetSpeedBase.value);
+		window.localStorage.setItem('downloadtime.overhead', internetOverhead.value);
+		window.localStorage.setItem('downloadtime.file', fileSize.value);
+		window.localStorage.setItem('downloadtime.fileBase', fileSizeBase.value);
 	}
 	
 	/*
