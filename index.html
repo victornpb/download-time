@@ -215,6 +215,26 @@ input, button{
 	display: inline-block;
 }
 
+/******/
+.collapse{
+	font-size: 8pt;
+	display:block;
+	
+	color: gray;
+}
+.collapse:hover{
+	color: white;
+}
+.collapse + input{
+  display:none;
+}
+.collapse + input + div{
+  display:none;
+}
+.collapse+ input:checked + div{
+  display:block;
+}
+
 </style>
 <script src="moment.min.js" type="text/javascript"></script>
 </head>
@@ -280,28 +300,33 @@ input, button{
 		
 		<p class="idkSpeed"><a href="http://speedtest.net" target="new">I don't know my internet speed</a></p>
 		
-		<p class="overhead-p"><label for="internetOverhead">Overhead</label>
-			<select id="internetOverhead">
-			<option value="1" selected>None</option>
-			<option value="0.99">1%</option>
-			<option value="0.95">5%</option>
-			<option value="0.9">10% (Tipical TCP overhead)</option>
-			<option value="0.85">15%</option>
-			<option value="0.8">20%</option>
-			<option value="0.75">25%</option>
-			<option value="0.7">30%</option>
-			<option value="0.6">40%</option>
-			<option value="0.5">50%</option>
-			<option value="0.4">60%</option>
-			<option value="0.3">70%</option>
-			<option value="0.2">80%</option>
-			<option value="0.1">90%</option>
-			<option value="0.05">95%</option>
-			<option value="0.01">99%</option>
-			</select>
-			<a href="#" onClick="alert('If you just measured your internet speed, you don\'t need to change this.\n\nBut if enter your contracted speed e.g. 10Mbps, keep in mind this is teorical maximum there is always overhead.\nFor a conservative value use 10% (tipical TCP overhead) or for more realistic results use 20%.')">Help</a>
-		</p>
-		
+		<div>
+			<label class="collapse" for="_1">▼</label>
+		  	<input id="_1" type="checkbox">
+		  	<div>
+				<p class="overhead-p"><label for="internetOverhead">Overhead</label>
+					<select id="internetOverhead">
+					<option value="1" selected>None</option>
+					<option value="0.99">1%</option>
+					<option value="0.95">5%</option>
+					<option value="0.9">10% (Tipical TCP overhead)</option>
+					<option value="0.85">15%</option>
+					<option value="0.8">20%</option>
+					<option value="0.75">25%</option>
+					<option value="0.7">30%</option>
+					<option value="0.6">40%</option>
+					<option value="0.5">50%</option>
+					<option value="0.4">60%</option>
+					<option value="0.3">70%</option>
+					<option value="0.2">80%</option>
+					<option value="0.1">90%</option>
+					<option value="0.05">95%</option>
+					<option value="0.01">99%</option>
+					</select>
+					<a href="#" onClick="alert('If you just measured your internet speed, you don\'t need to change this.\n\nBut if enter your contracted speed e.g. 10Mbps, keep in mind this is teorical maximum there is always overhead.\nFor a conservative value use 10% (tipical TCP overhead) or for more realistic results use 20%.')">Help</a>
+				</p>
+			</div>
+		</div>	
 	</div>
 	
 	<div id="file">
