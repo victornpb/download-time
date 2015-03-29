@@ -17,18 +17,18 @@ body{
 	width: 600px;
 }
 h1,h2,h3,h4{
-	color:#444;
+	color: #444;
 }
 
 .content #speed,
 .content #file,
 .content #results,
-.content #downloadWindow{
+.content #downloadSimulatorWindow_{
 	margin-bottom: 20px;
 	border: 1px solid red;
 	
 	border: 1px solid gray;
-	border-radius: 5px;
+	border-radius: 3px;
 	
 	background-color: #EEE;
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
@@ -69,6 +69,7 @@ input, button{
 
 
 #results{
+	background-color: #FFF !important;
 	text-align: center;
 	
 	visibility: hidden;
@@ -87,11 +88,16 @@ input, button{
 	position: relative;
 	width: 600px;
 	height: 99px;
+
+	-color: gray;
+	opacity: 0.5;
+	/*
 	border: 1px solid gray;
 	border-radius: 5px;
 	
 	visibility: hidden;
 	box-shadow: 0px 1px 16px rgba(0,0,0,0.5);
+	*/
 }
 #downloadSimulatorWindow .filename {
 	position: absolute;
@@ -148,7 +154,7 @@ input, button{
 }
 
 .footer{
-	text-align:center;
+	text-align:c enter;
 	font-size: 9pt;
 	padding: 1em;
 }
@@ -158,11 +164,15 @@ input, button{
 #speedtest_mobile{
 	display: none;
 
-	magin: 30px;
+	margin: 30px;
 	background: #333;
 	color: #FFF;
 }
-
+#speedtest_mobile a{
+	color: #FFF;
+	margin:20px;
+}
+/*
 .mobile-iphone-btn,
 .mobile-windows-btn,
 .mobile-android-btn,
@@ -189,7 +199,7 @@ input, button{
 	background-position: 0 -2px;
 	background: url(http://www.speedtest.net/mobile/../images/app-store-amazon.png);
 }
-
+*/
 
 .speedtest-mobile-ico{
 	width: 124px;
@@ -269,24 +279,12 @@ input, button{
     <h1>Download time calculator</h1>
 	<h3>How long will take to download this?</h3>
 	
-	<form onSubmit="calc(); return false;">
+	<form onSubmit="calc(); return false; false;">
 	<div id="speed">
 		<h3>How fast is your connection speed?</h3>
 		
 		<div id="speedtest">
 			<embed align="middle" allowscriptaccess="always" height="250" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://www.speedtest.net/mini/speedtest.swf" type="application/x-shockwave-flash" width="450"></embed>
-		</div>
-		<div id="speedtest_mobile">
-			<div class="speedtest-mobile-ico"></div>
-			<div style="display:inline-block">Download the Speedtest app to measure your internet speed</div>
-			<br>
-			<div id="mobile_choices">
-				iOS <a href="http://itunes.apple.com/app/speedtest-net-mobile-speed/id300704847?mt=8" class="mobile-iphone-btn iphone-store">AppStore</a>
-
-				Android <a href="https://play.google.com/store/apps/details?id=org.zwanoo.android.speedtest&amp;referrer=utm_source%3Dstnet%26utm_medium%3Dmobile%26utm_campaign%3Dstnet" class="mobile-android-btn">GooglePlay</a>
-
-				Windows Phone<a href="http://www.windowsphone.com/en-us/store/app/speedtest-net/4fcd4de1-050b-44dc-b123-a786808eb49b" class="mobile-windows-btn">Windows Store</a>
-			</div>
 		</div>
 		
 		<p>
@@ -342,7 +340,7 @@ input, button{
 			</select>
 		</p>
 		
-		<p class="examples-p"> 
+		<p class="examples-p" style="display:none"> 
 			<label for="fileSize">Examples</label>
 			<select id="fileSizeBase">
 				<option value=""></option>
@@ -374,27 +372,32 @@ input, button{
 	</form>
 	
 	<div id="results">
-		<p class="time">0</p>
-		<p class="">to transfer <span class="size"></span> </p>
-		<p class="">at <span class="speed"></span>/sec</p>
-	</div>
-	
-	<div id="downloadSimulatorWindow">
-		<div class="filename">Simulation</div>
-		<div class="icon"></div>
-		
-		<div class="percent"></div>
-		<div class="progresrbar"><progress max="100" value="0"></progress></div>
-		
-		<div class="details">
-			<span class="downloaded"></span> of <span class="size"></span> (<span class="speed"></span>/sec) <span> - </span> <span class="remaining"></span> remaining
+		<div id="results_inner">
+			<p class="time">0</p>
+			<p class="">to transfer <span class="size"></span> </p>
+			<p class="">at <span class="speed"></span>/sec</p>
 		</div>
-		<div class="ps">* this is not an actual transfer, this is just a simulation of how much time it would take</div>
+		
+		<hr>
+
+		<div id="downloadSimulatorWindow">
+			<div class="filename">Simulation</div>
+			<div class="icon"></div>
+			
+			<div class="percent"></div>
+			<div class="progresrbar"><progress max="100" value="0"></progress></div>
+			
+			<div class="details">
+				<span class="downloaded"></span> of <span class="size"></span> (<span class="speed"></span>/sec) <span> - </span> <span class="remaining"></span> remaining
+			</div>
+			<div class="ps">* this is not an actual transfer, this is just a simulation of how much time it would take</div>
+		</div>
 	</div>
-	
-    <p class="footer">
-	<div class="ps">Examples are based on average file sizes from iTunes, and Playstation network</div>
-	<a href="http://www.vitim.us">Vitim.us</a></p>
+
+    <div class="footer">
+		
+		<a href="http://www.vitim.us">Vitim.us</a>
+	</div>
 
 </div>
 
@@ -410,9 +413,8 @@ window.onload=function(){
     	return (typeof navigator.plugins == "undefined" || navigator.plugins.length == 0) ? !!(new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) : navigator.plugins["Shockwave Flash"];
 	};
 
-	if(hasFlash()==false){
+	if(!hasFlash()){
 		speedtest.style.display = 'none';
-		speedtest_mobile.style.display = '';
 	}
 
 	downloadSimulator = new Downloader(document.getElementById('downloadSimulatorWindow'));
@@ -489,7 +491,7 @@ function calc(){
 	document.getElementById("results").style.visibility = "visible";
 	document.getElementById("downloadSimulatorWindow").style.visibility = "visible";
 	
-	downloadSimulator.start(file.bytes, internet.effectiveBytesPerSec, "Simulating Download");
+	downloadSimulator.start(file.bytes, internet.effectiveBytesPerSec, "Simulation");
 	
 	if(window.location){
 		var uri=[];
