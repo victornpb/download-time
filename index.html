@@ -411,10 +411,24 @@ var downloadSimulator = null;
 window.onload=function(){
 
 	//console.log("Loaded!");
+
+	calculateButton.onclick = calc;
 	
 	var hasFlash = function() {
-    	return (typeof navigator.plugins == "undefined" || navigator.plugins.length == 0) ? !!(new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) : navigator.plugins["Shockwave Flash"];
+
+		if(typeof navigator.plugins == "undefined" || navigator.plugins.length == 0){
+			try{
+				return !!(new ActiveXObject("ShockwaveFlash.ShockwaveFlash"));
+			}
+			catch(e){
+				return undefined;
+			}
+		}
+		else{
+			return navigator.plugins["Shockwave Flash"];
+		}
 	};
+
 	if(!hasFlash()){
 		speedtest.style.display = 'none';
 	}
@@ -444,7 +458,7 @@ window.onload=function(){
 	}
 	else defaults();
 
-	calculateButton.onclick = calc;
+	
 
 	/*document.getElementsByTagName("form")[0].onsubmit = function(e){
 
