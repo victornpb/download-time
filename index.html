@@ -226,6 +226,7 @@ input, button{
 			<option value="0.05">95%</option>
 			<option value="0.01">99%</option>
 			</select>
+			<a href="#" onClick="alert('If you just measured your internet speed, you don\'t need to change this.\n\nBut if enter your contracted speed e.g. 10Mbps, keep in mind this is teorical maximum there is always overhead.\nFor a conservative value use 10% (tipical TCP overhead) or for more realistic results use 20%.')">Help</a>
 		</p>
 		
 	</div>
@@ -242,6 +243,31 @@ input, button{
 				<option value="2^40">TB (TeraBytes)</option>
 			</select>
 		</p>
+		
+		<p class="examples-p"> 
+			<label for="fileSize">Examples</label>
+			<select id="fileSizeBase">
+				<option value=""></option>
+				<optgroup label="iTunes Store">
+					<option value="4">4-minute song</option>
+					<option value="30">5-minute video</option>
+					<option value="110">9-hour audiobook</option>
+					<option value="200">45-minute TV show</option>
+					<option value="600">45-minute HDTV show</option>
+					<option value="1.5">2-hour SD movie</option>
+					<option value="4">2-hour HD movie</option>
+					<option value="40">iPod Game</option>
+				</optgroup>
+				<optgroup label="Playstation Network">
+					<option value="9">PS3 Game</option>
+					<option value="24">PS4 Game</option>
+				</optgroup>
+				<option value=""></option>
+				<option value=""></option>
+				<option value=""></option>
+			</select>
+		</p>
+		
 		<p>
 			<button onClick="calc()">Calculate</button>
 		</p>
@@ -268,7 +294,9 @@ input, button{
 		<div class="ps">* this is not an actual transfer, this is just a simulation of how much time it would take</div>
 	</div>
 	
-    <p class="footer"><a href="http://www.vitim.us">Vitim.us</a></p>
+    <p class="footer">
+	<div class="ps">Examples are based on average file sizes from iTunes, and Playstation network</div>
+	<a href="http://www.vitim.us">Vitim.us</a></p>
 
 </div>
 
