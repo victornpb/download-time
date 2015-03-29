@@ -51,7 +51,9 @@ input, button{
 #speed .idkSpeed{
 	font-size: 8pt;
 }
-
+#speed .idkSpeed.mobile{
+	font-size: 11pt;
+}
 .overhead-p{
 	font-size: 8pt;
 }
@@ -154,11 +156,16 @@ input, button{
 }
 
 .footer{
-	text-align:c enter;
+	text-align: center;
 	font-size: 9pt;
 	padding: 1em;
 }
 
+
+#calculateButton{
+	padding-left: 1em;
+	padding-right: 1em;
+}
 
 /*****/
 #speedtest_mobile{
@@ -257,7 +264,7 @@ input, button{
 <link rel="icon" type="image/png" href="favicon.png" />
 -->
 
-<!-- WebApp
+
 <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1.0"/>
 <meta name="format-detection" content="telephone=no">
 
@@ -265,6 +272,7 @@ input, button{
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <link rel="apple-touch-startup-image" href="startup_320x460.png" />
 
+<!--
 <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
 <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
 <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-iphone-retina.png" />
@@ -298,7 +306,7 @@ input, button{
 			</select>
 		</p>
 		
-		<p class="idkSpeed"><a href="http://speedtest.net" target="new">I don't know my internet speed</a></p>
+		<p class="idkSpeed"><a id="speedtestLink" href="http://speedtest.net" target="new">I don't know my internet speed</a></p>
 		
 		<div>
 			<label class="collapse" for="_1">▼</label>
@@ -431,6 +439,8 @@ window.onload=function(){
 
 	if(!hasFlash()){
 		speedtest.style.display = 'none';
+		speedtestLink.innerHTML = "Test my internet speed";
+		document.querySelector('.idkSpeed').classList.add("mobile");
 	}
 
 	downloadSimulator = new Downloader(document.getElementById('downloadSimulatorWindow'));
