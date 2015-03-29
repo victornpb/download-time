@@ -7,7 +7,7 @@
 /* CSS GOES HERE */
 body{
 	font-family: Helvetica, Arial, sans-serif;
-	background-color: #D6D6D6
+	background-color: #f8f8f8;
 }
 
 .content{
@@ -15,6 +15,9 @@ body{
 	margin-left:auto;
 	margin-right:auto;
 	width: 600px;
+}
+h1,h2,h3,h4{
+	color:#444;
 }
 
 .content #speed,
@@ -26,6 +29,10 @@ body{
 	
 	border: 1px solid gray;
 	border-radius: 5px;
+	
+	background-color: #EEE;
+	box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+	
 }
 
 input, button{
@@ -45,7 +52,9 @@ input, button{
 	font-size: 8pt;
 }
 
-
+.overhead-p{
+	font-size: 8pt;
+}
 
 #file{
 	text-align: center;
@@ -54,7 +63,9 @@ input, button{
 	font-size: 16pt;
 	text-align: right;
 }
-
+.examples-p{
+	font-size: 8pt;
+}
 
 
 #results{
@@ -81,6 +92,7 @@ input, button{
 	border-radius: 5px;
 	
 	visibility: hidden;
+	box-shadow: 0px 1px 16px rgba(0,0,0,0.5);
 }
 #downloadSimulatorWindow .filename {
 	position: absolute;
@@ -174,7 +186,7 @@ input, button{
 <div class="content"> 
 
     <h1>Download time calculator</h1>
-	<h3>How long will take to download x?</h3>
+	<h3>How long will take to download this?</h3>
 	
 	<form onSubmit="calc(); return false;">
 	<div id="speed">
@@ -189,12 +201,12 @@ input, button{
 		
 		<p class="idkSpeed"><a href="http://speedtest.net" target="new">I don't know my internet speed</a></p>
 		
-		<p><label for="internetOverhead">Overhead</label>
+		<p class="overhead-p"><label for="internetOverhead">Overhead</label>
 			<select id="internetOverhead">
-			<option value="1" selected>None (100% of your speed)</option>
+			<option value="1" selected>None</option>
 			<option value="0.99">1%</option>
 			<option value="0.95">5%</option>
-			<option value="0.9">10% (Tipical)</option>
+			<option value="0.9">10% (Tipical TCP overhead)</option>
 			<option value="0.85">15%</option>
 			<option value="0.8">20%</option>
 			<option value="0.75">25%</option>
@@ -335,7 +347,7 @@ function calc(){
 	document.getElementById("results").style.visibility = "visible";
 	document.getElementById("downloadSimulatorWindow").style.visibility = "visible";
 	
-	downloadSimulator.start(file.bytes, internet.effectiveBytesPerSec, "Downloading...");
+	downloadSimulator.start(file.bytes, internet.effectiveBytesPerSec, "Simulating Download");
 	
 	if(window.location){
 		var uri=[];
