@@ -569,6 +569,7 @@ function Downloader(elm){
 		progress: elm.querySelector('progress'),
 		percent: elm.querySelector('.percent'),
 		downloaded: elm.querySelector('.downloaded'),
+		details: elm.querySelector('.details'),
 		size: elm.querySelector('.size'),
 		speed: elm.querySelector('.speed'),
 		remaining: elm.querySelector('.remaining'),
@@ -600,7 +601,10 @@ function Downloader(elm){
 		
 		_transferTime = (fileSize / speed)*1000;
 		
-		_timer = setInterval(function(){self.update()},50);
+		this.DOM.details.style.display = "";
+
+		self.update();
+		_timer = setInterval(function(){self.update()},500);
 	}
 		
 	this.update = function(){
@@ -635,9 +639,14 @@ function Downloader(elm){
 		this.DOM.progress.value = 100;
 		this.DOM.percent.innerHTML = "100%";
 		this.DOM.downloaded.innerHTML = prefixByte(this.fileSize);
+
+		
 		this.DOM.size.innerHTML = prefixByte(this.fileSize);
 		this.DOM.speed.innerHTML = prefixByte(this.speed);
 		this.DOM.remaining.innerHTML = "0";
+		
+
+		this.DOM.details.style.display = "none";
 	}
 
 }
