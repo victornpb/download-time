@@ -228,12 +228,14 @@ input, button{
 /******/
 .collapse{
 	font-size: 8pt;
-	display:block;
+	display: block;
+	line-height: 44px;
 	
 	color: gray;
 }
 .collapse:hover{
 	color: white;
+	-background-color: #FCFCFC;
 }
 .collapse + input{
   display:none;
@@ -444,7 +446,7 @@ window.onload=function(){
 
 	calculateButton.onclick = calc;
 
-	document.getElementsByTagName("form")[0].onsubmit = function(e){
+	/*document.getElementsByTagName("form")[0].onsubmit = function(e){
 
 		if (e.stopPropagation) e.stopPropagation();
 	    else e.cancelBubble = true;
@@ -455,7 +457,7 @@ window.onload=function(){
 		calc();
 
 		return false;
-	}
+	}*/
 
 
 };
